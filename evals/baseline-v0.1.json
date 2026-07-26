@@ -1,0 +1,17 @@
+{
+  "version": "0.1.0",
+  "evaluated_at": "2026-07-26",
+  "dataset": "evals/scam-cases.jsonl",
+  "dataset_type": "synthetic_engineering_baseline",
+  "dataset_size": 24,
+  "exact_risk_accuracy": 1,
+  "high_risk_non_low_recall": 1,
+  "false_reassurance_count": 0,
+  "gold_signal_recall": 0.872,
+  "limitations": [
+    "All cases are synthetic and authored for pipeline validation.",
+    "Results must not be presented as real-world scam detection accuracy.",
+    "The dataset is too small for launch decisions.",
+    "Before a controlled pilot, expand to 120+ dual-reviewed cases with adversarial and legitimate hard negatives."
+  ]
+}
