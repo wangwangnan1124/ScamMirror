@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "description": "A privacy-first, explainable anti-scam assistant that runs in the browser.",
+  "homepage": "https://scammirror-20260726.chilinzhang112.chatgpt.site",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wangwangnan1124/ScamMirror.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wangwangnan1124/ScamMirror/issues"
+  },
   "license": "MIT",
   "packageManager": "pnpm@11.9.0",
   "engines": {

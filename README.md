@@ -63,8 +63,8 @@ ScamMirror 不把规则分数包装成真实概率，也永远不显示“确定
 需要 Node.js 22.13 或更高版本，以及 pnpm。
 
 ```bash
-git clone <your-repository-url>
-cd scam-mirror
+git clone https://github.com/wangwangnan1124/ScamMirror.git
+cd ScamMirror
 pnpm install
 pnpm dev
 ```
