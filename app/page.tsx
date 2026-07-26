@@ -1,9 +1,7 @@
 "use client";
 
-import { ChangeEvent, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { analyzeScamText, ScamAnalysis } from "./lib/scam-rules";
-
-type InputMode = "text" | "image";
 
 const EXAMPLES = [
   {
@@ -37,14 +35,11 @@ function riskClass(level: ScamAnalysis["riskLevel"]) {
 }
 
 export default function Home() {
-  const [inputMode, setInputMode] = useState<InputMode>("text");
   const [message, setMessage] = useState(EXAMPLES[0].text);
   const [activeExample, setActiveExample] = useState(EXAMPLES[0].id);
   const [analysis, setAnalysis] = useState<ScamAnalysis | null>(null);
   const [isScanning, setIsScanning] = useState(false);
   const [error, setError] = useState("");
-  const [imagePreview, setImagePreview] = useState("");
-  const [imageName, setImageName] = useState("");
   const [showShareCard, setShowShareCard] = useState(false);
   const [copied, setCopied] = useState(false);
   const resultRef = useRef<HTMLElement>(null);
@@ -56,26 +51,6 @@ export default function Home() {
     setMessage(example.text);
     setAnalysis(null);
     setError("");
-    setInputMode("text");
-  }
-
-  function handleImage(event: ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    if (!file.type.startsWith("image/")) {
-      setError("请选择 PNG、JPG 或 WEBP 图片。");
-      return;
-    }
-    if (file.size > 8 * 1024 * 1024) {
-      setError("图片请控制在 8 MB 以内。");
-      return;
-    }
-
-    if (imagePreview) URL.revokeObjectURL(imagePreview);
-    setImagePreview(URL.createObjectURL(file));
-    setImageName(file.name);
-    setError("");
-    setAnalysis(null);
   }
 
   function runAnalysis() {
@@ -139,7 +114,7 @@ export default function Home() {
         <div className="topbar-actions">
           <span className="local-pill">
             <span className="local-dot" aria-hidden="true" />
-            本地演示
+            浏览器本地分析
           </span>
           <a href="#how-it-works">如何判断</a>
         </div>
@@ -178,58 +153,8 @@ export default function Home() {
             <span className="privacy-note">内容仅在当前页面分析</span>
           </div>
 
-          <div className="mode-tabs" role="tablist" aria-label="输入方式">
-            <button
-              className={inputMode === "text" ? "active" : ""}
-              onClick={() => setInputMode("text")}
-              role="tab"
-              aria-selected={inputMode === "text"}
-            >
-              粘贴文字
-            </button>
-            <button
-              className={inputMode === "image" ? "active" : ""}
-              onClick={() => setInputMode("image")}
-              role="tab"
-              aria-selected={inputMode === "image"}
-            >
-              上传截图
-              <span className="beta-tag">演示</span>
-            </button>
-          </div>
-
-          {inputMode === "image" && (
-            <div className="image-upload-area">
-              <label className={`upload-box ${imagePreview ? "has-image" : ""}`}>
-                <input
-                  type="file"
-                  accept="image/png,image/jpeg,image/webp"
-                  onChange={handleImage}
-                />
-                {imagePreview ? (
-                  <>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={imagePreview} alt="待分析截图预览" />
-                    <span className="image-change">更换图片 · {imageName}</span>
-                  </>
-                ) : (
-                  <>
-                    <span className="upload-symbol" aria-hidden="true">
-                      +
-                    </span>
-                    <strong>选择聊天截图</strong>
-                    <span>PNG、JPG 或 WEBP，最大 8 MB</span>
-                  </>
-                )}
-              </label>
-              <p className="demo-disclosure">
-                开源演示版不会上传图片。请把截图中的可疑文字粘贴到下方，后续可接入视觉模型完成 OCR。
-              </p>
-            </div>
-          )}
-
           <label className="message-label" htmlFor="suspicious-message">
-            {inputMode === "image" ? "截图中的可疑文字" : "可疑信息"}
+            可疑信息
             <span>{message.length}/600</span>
           </label>
           <textarea

@@ -31,8 +31,10 @@ test("server-renders the ScamMirror product shell", async () => {
   assert.match(html, /<title>ScamMirror 防诈镜/);
   assert.match(html, /转账之前/);
   assert.match(html, /开始照一照/);
+  assert.match(html, /浏览器本地分析/);
   assert.match(html, /不保存聊天内容/);
   assert.match(html, /永不承诺/);
+  assert.doesNotMatch(html, /上传截图/);
   assert.doesNotMatch(html, /codex-preview/);
   assert.doesNotMatch(html, /react-loading-skeleton/);
 });

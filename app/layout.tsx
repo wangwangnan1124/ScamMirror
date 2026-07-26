@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = `${protocol}://${host}`;
   const title = "ScamMirror 防诈镜｜转账之前，照一照";
   const description =
-    "上传或粘贴可疑信息，标出风险证据，并获得一条更安全的独立核验路径。";
+    "粘贴可疑信息，标出风险证据，并获得一条更安全的独立核验路径。";
 
   return {
     title,
